@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Webapp for Market App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is made in ReactJS with redux-toolkit, Router and so.
 
 ## Available Scripts
 

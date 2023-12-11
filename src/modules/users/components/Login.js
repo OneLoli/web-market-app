@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logInWithEmailAndPassword } from "../../backend/userFirebase";
+import { logged } from "../../../store/authSlice";
+import { useDispatch } from "react-redux";
 
 function LoginForm() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    logInWithEmailAndPassword(email, password, () => navigate("/articles"));
+    logInWithEmailAndPassword(email, password, () => {
+      dispatch(logged(true));
+      navigate("/articles");
+    });
   };
 
   return (

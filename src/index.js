@@ -5,10 +5,12 @@ import App from "./modules/app";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import articlesReducer from "./store/articlesSlice";
+import authReducer from "./store/authSlice";
 
 var store = configureStore({
   reducer: {
     articles: articlesReducer,
+    auth: authReducer,
   },
 });
 

@@ -13,6 +13,7 @@ function List() {
     getArticlesBackend((items) => dispatch(addArticles(items)));
     return <p>No items to display</p>;
   }
+  console.log(lista);
 
   return (
     <div class="container d-grid item-list">

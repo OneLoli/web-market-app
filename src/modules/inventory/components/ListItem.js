@@ -1,15 +1,33 @@
 import React from "react";
-import { articleDecrease, articleToggle } from "../../../store/articlesSlice";
-import { useDispatch } from "react-redux";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { useEffect, useState } from "react";
+import { auth } from "../../../config/firebaseConfig";
 
 function Listitem(props) {
-  const dispatch = useDispatch();
-  const { content, units } = props;
+  let content = props.content;
+  const storage = getStorage();
+  let id = props.itemKey;
+  let correo = auth.currentUser && auth.currentUser.email;
+  // Use state to store the image URL
+  const [imageUrl, setImageUrl] = useState(null);
+
+  //const imageRef = storage.ref(`${correo}/items/${id}`);
+
+  // Get the image URL from Firebase Storage
+  useEffect(() => {
+    const imageRef = ref(storage, `${correo}/items/${id}`);
+    getDownloadURL(imageRef)
+      .then((url) => setImageUrl(url))
+      .catch((error) => console.error("Error getting download URL: ", error));
+  }, [id, correo, storage]);
 
   return (
     <div class="card grid-item">
       <img
-        src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/object_cube.png"
+        src={
+          imageUrl ||
+          "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/object_cube.png"
+        }
         class="card-img-top"
         alt="Articulo"
       />

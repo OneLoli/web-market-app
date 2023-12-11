@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getArticles } from "../modules/backend/firestore";
 
 const articlesSlice = createSlice({
   name: "articles",
