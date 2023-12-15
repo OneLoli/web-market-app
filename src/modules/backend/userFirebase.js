@@ -7,9 +7,12 @@ const logInWithEmailAndPassword = async (email, password, callback) => {
       if (auth.currentUser !== null) callback();
     });
   } catch (err) {
-    console.error(err);
     alert(err.message);
   }
 };
 
-export { logInWithEmailAndPassword };
+const register = (email, password, callback) => {
+  console.log(email);
+};
+
+export { logInWithEmailAndPassword, register };

@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
-    lista: [],
-    listaCompletada: [],
+    list: [],
+    filteredList: [],
   },
   reducers: {
     articleAdded(state, action) {
@@ -13,24 +13,19 @@ const articlesSlice = createSlice({
         text: action.payload.text,
       });
     },
-    articleDecrease(state, action) {
-      const item = state["lista"].find((item) => item.id === action.payload.id);
-      item.units--;
-      return state;
-    },
-    articleToggle(state, action) {
-      const todo = state["lista"].find((todo) => todo.id === action.payload.id);
-      state["listaCompletada"].push(todo);
-      const index = state["lista"].indexOf(todo);
-      state["lista"].splice(index, 1);
-      return state;
-    },
     addArticles(state, action) {
-      state["lista"] = action.payload;
+      state["list"] = action.payload;
+      state["filteredList"] = action.payload;
       return state;
     },
     addList(state, action) {
-      state["lista"] = action.payload;
+      state["list"] = action.payload;
+      return state;
+    },
+    toFiltered(state, action) {
+      state["filteredList"] = state["list"].filter((item) =>
+        item.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
       return state;
     },
   },
@@ -42,5 +37,6 @@ export const {
   articleToggle,
   addArticles,
   addList,
+  toFiltered,
 } = articlesSlice.actions;
 export default articlesSlice.reducer;
